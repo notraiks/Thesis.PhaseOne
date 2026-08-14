@@ -1,0 +1,37 @@
+STAGE 1 FINAL DEPLOYMENT -- PROVENANCE MANIFEST
+============================================================
+Generated: 2026-08-13T18:16:45
+
+Adopted checkpoint: best_model
+  Path: C:\Users\Administrator\Documents\Thesis\models\best_model\weights\best.pt
+  Last modified: Fri Jul 17 19:05:56 2026
+  Classes: {0: 'coral'}
+
+SAHI configuration:
+  postprocess_type: GREEDYNMM
+  postprocess_match_metric: IOS
+  postprocess_match_threshold: 0.5
+  confidence_threshold (VISUAL_DISPLAY_THRESHOLD): 0.15
+  slice size: 640x640, overlap ratio: 0.2
+
+Input images: cropped CoralNet-Dataset (crop_coralnet_quadrat.py already applied)
+  Raw directory (INPUT_ROOT): C:\Users\Administrator\Documents\Thesis\data\Coralnet-raw
+  Cropped directory (OUTPUT_ROOT): C:\Users\Administrator\Documents\Thesis\data\Coralnet-Final
+  Crop geometry: LEFT/RIGHT/TOP margin 2.5%, BOTTOM cutoff 78%
+
+Output layout:
+  Sample visuals: C:\Users\Administrator\Documents\Thesis\test_images (flat, 10 known images, static -- not regenerated per batch)
+  Full-dataset visuals: C:\Users\Administrator\Documents\Thesis\data\Coralnet-Inference-Result\visuals_full
+    Mirrors OUTPUT_ROOT's site/transect folder structure exactly --
+    no longer a single flat directory with hashed filenames.
+  All visualization JPEGs carry the source cropped image's original
+  EXIF metadata (Make/Model/DateTimeOriginal/MakerNote/etc.), via
+  export_visual_with_exif() -- SAHI's own export_visuals() writes PNG
+  through cv2.imwrite, which never carries EXIF, so this notebook
+  bypasses it and re-attaches EXIF itself before saving.
+
+Known, accepted limitation:
+  Correctly detects genuine coral colonies on real CoralNet images, confirmed
+  by direct visual inspection. Also produces some false-positive detections
+  and low-level noise on the same images. Accepted as a known characteristic
+  of this stage -- not treated as an open bug in this notebook.
